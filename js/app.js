@@ -11,6 +11,7 @@ var Enemy = function() {
 	this.speed = Math.floor(Math.random()*200)+150;
 };
 
+
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -19,6 +20,19 @@ Enemy.prototype.update = function(dt) {
 };
 
 Enemy.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+var finishedplayers = [];
+
+var FinishedPlayer = function(pos) {
+	this.sprite = 'images/char-boy.png';
+	this.y = 0;
+	this.x = pos * 100;
+	this.position = pos;
+};
+
+FinishedPlayer.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -45,14 +59,25 @@ Player.prototype.update = function() {
         (hopx >= 0 && this.moveX === -1)) {
         this.x += this.moveX * this.speedX;
 		console.log(this.x,this.y);
-    }
+    };
 
     var hopy = this.y + this.moveY * this.speedY;
+	if (hopy = 0) {
+			var finishedpos = [];
+				finishedplayers.forEach(function (finishedplayer) {
+				finishedpos.push(finishedplayer.position);
+			});
+		if (finishedpos.indexOf(pos) = -1) {
+			finishedplayers.push(new FinishedPlayer(this.x/100));
+			player.reset();
+	} else {
+		this.moveY =0;
+	}}
     if ((hopy < 450 && this.moveY === 1) ||
         (hopy >= 0 && this.moveY === -1)) {
 		this.y += this.moveY * this.speedY;
 		console.log(this.x,this.y);
-    }
+    };
 
     this.moveX = 0;
     this.moveY = 0;
@@ -95,6 +120,7 @@ Player.prototype.checkCollisions = function() {
         });
 };
 
+
 var allEnemies = [];
 setInterval(function() {
         allEnemies.push(new Enemy());
@@ -107,6 +133,7 @@ var reset = function() {
 
     player.reset();
 };
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
