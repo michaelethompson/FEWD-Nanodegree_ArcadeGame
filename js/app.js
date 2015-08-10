@@ -31,7 +31,7 @@ var Player = function() {
 	this.movey = 0;
 	
 	this.speedX = 100;
-	this.speedY = 85;
+	this.speedY = 80;
 	
 	this.numLives = 3;
 	
@@ -41,15 +41,17 @@ var Player = function() {
 Player.prototype.update = function() {
 
     var hopx = this.x + this.moveX * this.speedX;
-    if ((hopx < 450 && this.moveX === 1) ||
-        (hopx > -50 && this.moveX === -1)) {
+    if ((hopx <= 400 && this.moveX === 1) ||
+        (hopx >= 0 && this.moveX === -1)) {
         this.x += this.moveX * this.speedX;
+		console.log(this.x,this.y);
     }
 
     var hopy = this.y + this.moveY * this.speedY;
     if ((hopy < 450 && this.moveY === 1) ||
-        (hopy > 0 && this.moveY === -1)) {
-        this.y += this.moveY * this.speedY;
+        (hopy >= 0 && this.moveY === -1)) {
+		this.y += this.moveY * this.speedY;
+		console.log(this.x,this.y);
     }
 
     this.moveX = 0;
