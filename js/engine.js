@@ -95,8 +95,16 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
-		if (finishedplayers.length = 5) {
-			//alert("Game Over, Man!");
+		if (safePlayers.length === 5) {
+			render();
+			
+			alert("Level Up!");
+			
+			safePlayers.length = 0;
+			allEnemies.length = 0;
+			
+			maxSpeed += 25;
+			minSpeed += 25;
 		}
     };
 
@@ -156,8 +164,9 @@ var Engine = (function(global) {
         });
 
         player.render();
-		finishedplayers.forEach(function(finishedplayer) {
-			finishedplayer.render();
+		safePlayers.forEach(function(safePlayer) {
+			console.log(safePlayer.x,safePlayer.y,safePlayer.position);
+			safePlayer.render();
 		});
     }
 

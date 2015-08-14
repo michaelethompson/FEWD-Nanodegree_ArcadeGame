@@ -1,14 +1,20 @@
+var maxSpeed = 200;
+var minSpeed = 250;
 var Enemy = function() {
     // Variables applied to each of our instances go here,
-
+	var direction = Math.round(Math.random()) * 2 - 1
     this.sprite = 'images/enemy-bug.png';
+	if (direction === -1) {
+	this.x = 600;
+	} else {
 	this.x = -200;
+	};
 	var yPos = function() {
 		var y = [65, 145, 225];
 		return y[Math.floor(Math.random() * y.length)];
     };
 	this.y = yPos();
-	this.speed = Math.floor(Math.random()*200)+150;
+	this.speed = (Math.floor(Math.random()*maxSpeed)+minSpeed)*direction;
 };
 
 
@@ -23,7 +29,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var finishedplayers = [];
+var finishedpos = [];
 
 var FinishedPlayer = function(pos) {
 	this.sprite = 'images/char-boy.png';
@@ -35,6 +41,10 @@ var FinishedPlayer = function(pos) {
 FinishedPlayer.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+var safePlayers = [];
+console.log(safePlayers.length);
+//safePlayers.push(new FinishedPlayer(10));
 
 var Player = function() {
 	
@@ -54,29 +64,38 @@ var Player = function() {
 
 Player.prototype.update = function() {
 
-    var hopx = this.x + this.moveX * this.speedX;
-    if ((hopx <= 400 && this.moveX === 1) ||
-        (hopx >= 0 && this.moveX === -1)) {
+    var hopX = this.x + this.moveX * this.speedX;
+    if ((hopX <= 400 && this.moveX === 1) ||
+        (hopX >= 0 && this.moveX === -1)) {
         this.x += this.moveX * this.speedX;
-		console.log(this.x,this.y);
+//		console.log(this.x,this.y);
     };
 
-    var hopy = this.y + this.moveY * this.speedY;
-	if (hopy = 0) {
-			var finishedpos = [];
-				finishedplayers.forEach(function (finishedplayer) {
-				finishedpos.push(finishedplayer.position);
+    var hopY = this.y + this.moveY * this.speedY;
+	if (hopY === 0) {
+					console.log("hit");
+ 				finishedpos.length = 0;
+				console.log(finishedpos.length);
+				if (safePlayers.length > 0) {
+				safePlayers.forEach(function (safePlayer) {
+					console.log(safePlayer.index, safePlayer.position);
+				finishedpos.push(safePlayer.position);
 			});
-		if (finishedpos.indexOf(pos) = -1) {
-			finishedplayers.push(new FinishedPlayer(this.x/100));
+				console.log(finishedpos.length);
+				console.log(this.x/100);
+				};
+		if (finishedpos.indexOf(this.x/100) === -1) {
+		safePlayers.push(new FinishedPlayer(this.x/100));
+  	console.log(safePlayers.length);
+			
 			player.reset();
-	} else {
+		};
 		this.moveY =0;
-	}}
-    if ((hopy < 450 && this.moveY === 1) ||
-        (hopy >= 0 && this.moveY === -1)) {
+	};
+    if ((hopY < 450 && this.moveY === 1) ||
+        (hopY > 0 && this.moveY === -1)) {
 		this.y += this.moveY * this.speedY;
-		console.log(this.x,this.y);
+//		console.log(this.x,this.y);
     };
 
     this.moveX = 0;
@@ -118,6 +137,11 @@ Player.prototype.checkCollisions = function() {
             p.y = 400;
             };
         });
+};
+
+Player.prototype.reset = function() {
+	this.x = 200;
+	this.y = 400;
 };
 
 
