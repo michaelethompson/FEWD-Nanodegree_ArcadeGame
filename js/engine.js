@@ -165,7 +165,6 @@ var Engine = (function(global) {
 
         player.render();
 		safePlayers.forEach(function(safePlayer) {
-			console.log(safePlayer.x,safePlayer.y,safePlayer.position);
 			safePlayer.render();
 		});
     }

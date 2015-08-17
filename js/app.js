@@ -43,8 +43,6 @@ FinishedPlayer.prototype.render = function() {
 };
 
 var safePlayers = [];
-console.log(safePlayers.length);
-//safePlayers.push(new FinishedPlayer(10));
 
 var Player = function() {
 	
@@ -68,25 +66,18 @@ Player.prototype.update = function() {
     if ((hopX <= 400 && this.moveX === 1) ||
         (hopX >= 0 && this.moveX === -1)) {
         this.x += this.moveX * this.speedX;
-//		console.log(this.x,this.y);
     };
 
     var hopY = this.y + this.moveY * this.speedY;
 	if (hopY === 0) {
-					console.log("hit");
  				finishedpos.length = 0;
-				console.log(finishedpos.length);
 				if (safePlayers.length > 0) {
 				safePlayers.forEach(function (safePlayer) {
-					console.log(safePlayer.index, safePlayer.position);
 				finishedpos.push(safePlayer.position);
 			});
-				console.log(finishedpos.length);
-				console.log(this.x/100);
 				};
 		if (finishedpos.indexOf(this.x/100) === -1) {
 		safePlayers.push(new FinishedPlayer(this.x/100));
-  	console.log(safePlayers.length);
 			
 			player.reset();
 		};
@@ -95,7 +86,6 @@ Player.prototype.update = function() {
     if ((hopY < 450 && this.moveY === 1) ||
         (hopY > 0 && this.moveY === -1)) {
 		this.y += this.moveY * this.speedY;
-//		console.log(this.x,this.y);
     };
 
     this.moveX = 0;
