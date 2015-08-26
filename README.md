@@ -2,7 +2,10 @@ frontend-nanodegree-arcade-game
 
 The game starts automatically.
 
-The object is to use the arrow keys to move the boy, avoiding the bugs, to the top row. Once all the slots in the top row are filled, the game starts over with bugs and obstacles moveing faster.
+The object is to use the arrow keys to move the boy to the top row. 
+IF the boy collides with a bug, he goes back to the start.
+When the boy makes it to the top row without colliding with a bug, He is safe, and a new boy appears at the start.
+Once all the slots in the top row are filled, the game starts over with bugs and obstacles moving faster.
 
 
 ===============================

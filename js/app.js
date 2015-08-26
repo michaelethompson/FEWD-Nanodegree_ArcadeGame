@@ -2,19 +2,19 @@ var maxSpeed = 200;
 var minSpeed = 250;
 var Enemy = function() {
     // Variables applied to each of our instances go here,
-	var direction = Math.round(Math.random()) * 2 - 1
+    var direction = Math.round(Math.random()) * 2 - 1;
     this.sprite = 'images/enemy-bug.png';
-	if (direction === -1) {
-	this.x = 600;
-	} else {
-	this.x = -200;
-	};
-	var yPos = function() {
-		var y = [65, 145, 225];
-		return y[Math.floor(Math.random() * y.length)];
+    if (direction === -1) {
+        this.x = 600;
+    } else {
+        this.x = -200;
+    }
+    var yPos = function() {
+        var y = [65, 145, 225];
+        return y[Math.floor(Math.random() * y.length)];
     };
-	this.y = yPos();
-	this.speed = (Math.floor(Math.random()*maxSpeed)+minSpeed)*direction;
+    this.y = yPos();
+    this.speed = (Math.floor(Math.random() * maxSpeed) + minSpeed) * direction;
 };
 
 
@@ -22,7 +22,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-	this.x += this.speed * dt;
+    this.x += this.speed * dt;
 };
 
 Enemy.prototype.render = function() {
@@ -32,10 +32,10 @@ Enemy.prototype.render = function() {
 var finishedpos = [];
 
 var FinishedPlayer = function(pos) {
-	this.sprite = 'images/char-boy.png';
-	this.y = 0;
-	this.x = pos * 100;
-	this.position = pos;
+    this.sprite = 'images/char-boy.png';
+    this.y = 0;
+    this.x = pos * 100;
+    this.position = pos;
 };
 
 FinishedPlayer.prototype.render = function() {
@@ -45,19 +45,19 @@ FinishedPlayer.prototype.render = function() {
 var safePlayers = [];
 
 var Player = function() {
-	
-	this.x = 200;
-	this.y = 400;
-	
-	this.movex = 0;
-	this.movey = 0;
-	
-	this.speedX = 100;
-	this.speedY = 80;
-	
-	this.numLives = 3;
-	
-	this.sprite = 'images/char-boy.png';
+
+    this.x = 200;
+    this.y = 400;
+
+    this.movex = 0;
+    this.movey = 0;
+
+    this.speedX = 100;
+    this.speedY = 80;
+
+    this.numLives = 3;
+
+    this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function() {
@@ -66,27 +66,27 @@ Player.prototype.update = function() {
     if ((hopX <= 400 && this.moveX === 1) ||
         (hopX >= 0 && this.moveX === -1)) {
         this.x += this.moveX * this.speedX;
-    };
+    }
 
     var hopY = this.y + this.moveY * this.speedY;
-	if (hopY === 0) {
- 				finishedpos.length = 0;
-				if (safePlayers.length > 0) {
-				safePlayers.forEach(function (safePlayer) {
-				finishedpos.push(safePlayer.position);
-			});
-				};
-		if (finishedpos.indexOf(this.x/100) === -1) {
-		safePlayers.push(new FinishedPlayer(this.x/100));
-			
-			player.reset();
-		};
-		this.moveY =0;
-	};
+    if (hopY === 0) {
+        finishedpos.length = 0;
+        if (safePlayers.length > 0) {
+            safePlayers.forEach(function(safePlayer) {
+                finishedpos.push(safePlayer.position);
+            });
+        }
+        if (finishedpos.indexOf(this.x / 100) === -1) {
+            safePlayers.push(new FinishedPlayer(this.x / 100));
+
+            this.reset();
+        }
+        this.moveY = 0;
+    }
     if ((hopY < 450 && this.moveY === 1) ||
         (hopY > 0 && this.moveY === -1)) {
-		this.y += this.moveY * this.speedY;
-    };
+        this.y += this.moveY * this.speedY;
+    }
 
     this.moveX = 0;
     this.moveY = 0;
@@ -125,13 +125,13 @@ Player.prototype.checkCollisions = function() {
             Math.abs(enemyPosY - playerPosY) < 50) {
             p.x = 200;
             p.y = 400;
-            };
-        });
+        }
+    });
 };
 
 Player.prototype.reset = function() {
-	this.x = 200;
-	this.y = 400;
+    this.x = 200;
+    this.y = 400;
 };
 
 
