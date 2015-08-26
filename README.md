@@ -1,6 +1,7 @@
 frontend-nanodegree-arcade-game
 
-The game starts automatically.
+To begin, open index.html in a browser, or visit my github page. (https://github.com/michaelethompson/FEWD-Nanodegree_ArcadeGame) 
+
 
 The object is to use the arrow keys to move the boy to the top row. 
 IF the boy collides with a bug, he goes back to the start.
